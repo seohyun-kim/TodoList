@@ -23,6 +23,7 @@ async function getUser() {
             // });
 
             // 로우 셀 추가
+
             let td = document.createElement('td');
             td.textContent = member.id;
             row.appendChild(td);
@@ -39,12 +40,33 @@ async function getUser() {
             td.textContent = member.name;
             row.appendChild(td);
 
+            const editAge = document.getElementById('editBtn').createElement('button');
+            editAge.textContent = '수정';
+            editAge.addEventListener('click', async () => { // 수정 클릭 시
+                const newAge = prompt('바꿀 나이을 입력하세요');
+                if (!newAge) {
+                    return alert('내용을 반드시 입력하셔야 합니다');
+                }
+                try {
+                    await axios.patch(`/members/${member.id}`, { age: newAge });
+                    getUser();
+                } catch (err) {
+                    console.error(err);
+                }
+            });
+
+            // 버튼 추가
+            td = document.createElement('td');
+            td.appendChild(editAge);
+            row.appendChild(td);
             tbody.appendChild(row);
         });
     } catch (err) {
         console.error(err);
     }
 }
+
+
 // // 댓글 로딩
 // async function getComment(id) {
 //     try {

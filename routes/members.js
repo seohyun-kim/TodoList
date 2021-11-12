@@ -42,6 +42,31 @@ router.route('/')
         }
     });
 
+// 사용자 수정
+router.route('/:id')
+    .patch(async (req, res, next) => {
+        try {
+            const result = await Member.update({
+                member: req.body.age,
+            }, {
+                where: { id: req.params.id },
+            });
+            res.json(result);
+        } catch (err) {
+            console.error(err);
+            next(err);
+        }
+    });
+    // .delete(async (req, res, next) => {
+    //     try {
+    //         const result = await Comment.destroy({ where: { id: req.params.id } });
+    //         res.json(result);
+    //     } catch (err) {
+    //         console.error(err);
+    //         next(err);
+    //     }
+    // });
+
 
 
 // router.get('/:id', async (req, res, next) => {
