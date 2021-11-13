@@ -24,6 +24,7 @@ router.route('/')
             //console.log(JSON.stringify(exUser));
             if (exUser.length >0) {
                 console.log("이메일이 중복됩니다.");
+                //res.write('<script type="text/javascript">alert("이메일이 중복됩니다.");</script>');
                 res.status(201);
             }else{
                 console.log("이메일 사용 가능합니다.");
@@ -57,16 +58,8 @@ router.route('/:id')
             console.error(err);
             next(err);
         }
-    })
-    // .delete(async (req, res, next) => {
-    //     try {
-    //         const result = await Member.destroy({ where: { id: req.params.id } });
-    //         res.json(result);
-    //     } catch (err) {
-    //         console.error(err);
-    //         next(err);
-    //     }
-    // });
+    });
+
 
 
 

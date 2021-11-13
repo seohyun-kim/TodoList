@@ -25,7 +25,6 @@ async function getUser() {
             });
             let td = document.createElement('td');
             td.textContent = member.id;
-            td.textContent = "메롱!"
             row.appendChild(td);
 
             td = document.createElement('td');
@@ -59,24 +58,12 @@ async function getUser() {
                     console.error(err);
                 }
             });
-            // // const remove = document.createElement('button');
-            // // remove.textContent = '삭제';
-            // // remove.addEventListener('click', async () => { // 삭제 클릭 시
-            // //     try {
-            // //         await axios.delete(`/members/${member.id}`);
-            // //         getUser();
-            // //     } catch (err) {
-            // //         console.error(err);
-            // //     }
-            // // });
+
             // 버튼 추가
             td = document.createElement('td');
             td.appendChild(edit);
             row.appendChild(td);
-            // // td = document.createElement('td');
-            // // td.appendChild(remove);
-            // // row.appendChild(td);
-             tbody.appendChild(row);
+            tbody.appendChild(row);
 
         });
     } catch (err) {
@@ -173,19 +160,6 @@ document.getElementById('user-form').addEventListener('submit', async (e) => {
     e.target.username.value = '';
 });
 
-// // 사용자 수정 시
-// document.getElementById('editBtn{{member.id}}').addEventListener('button', async () => {
-//     const newAge = prompt('바꿀 나이을 입력하세요');
-//     if (!newAge) {
-//         return alert('내용을 반드시 입력하셔야 합니다');
-//     }
-//     try {
-//         await axios.patch(`/members/${member.id}`, { age: newAge });
-//         getUser();
-//     } catch (err) {
-//         console.error(err);
-//     }
-// });
 
 // // 회원 조회 버튼 클릭 시
 // document.getElementById('memRetrieve').addEventListener('button', async () => {
@@ -221,3 +195,6 @@ document.getElementById('user-form').addEventListener('submit', async (e) => {
 //     e.target.userid.value = '';
 //     e.target.comment.value = '';
 // });
+
+//default
+getUser();
