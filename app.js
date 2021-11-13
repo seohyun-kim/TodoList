@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
 app.use('/members', membersRouter);
- app.use('/todos', todosRouter);
+app.use('/todos', todosRouter);
 
 app.use((req, res, next) => {
     const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);

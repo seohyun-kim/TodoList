@@ -1,7 +1,6 @@
 const express = require('express');
 const Member = require('../models/Member');
 
-
 const router = express.Router();
 
 router.get('/', async (req, res, next) => {

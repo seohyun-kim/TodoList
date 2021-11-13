@@ -43,8 +43,23 @@ router.route('/')
         }
     });
 
-// 사용자 수정
+// 사용자 단건조회와 수정
 router.route('/:id')
+    .get(async (req, res, next) => {
+        try {
+            const todos = await Todo.findAll({
+                include: {
+                    model: Member,
+                    where: { id: req.params.id },
+                },
+            });
+            console.log(todos);
+            res.json(todos);
+        } catch (err) {
+            console.error(err);
+            next(err);
+        }
+    })
     .patch(async (req, res, next) => {
         try {
             const result = await Member.update({
@@ -59,23 +74,5 @@ router.route('/:id')
             next(err);
         }
     });
-
-router.get('/:id/todos', async (req, res, next) => {
-    try {
-        const todos = await Todo.findAll({
-            include: {
-                model: Member,
-                where: { id: req.params.id },
-            },
-        });
-        console.log(todos);
-        res.json(todos);
-    } catch (err) {
-        console.error(err);
-        next(err);
-    }
-});
-
-
 
 module.exports = router;

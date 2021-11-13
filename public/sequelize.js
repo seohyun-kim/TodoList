@@ -1,4 +1,3 @@
-
 // 사용자 이름 눌렀을 때 댓글 로딩
 document.querySelectorAll('#user-list tr').forEach((el) => {
     el.addEventListener('click', function () {
@@ -25,15 +24,12 @@ async function getUser() {
             let td = document.createElement('td');
             td.textContent = member.id;
             row.appendChild(td);
-
             td = document.createElement('td');
             td.textContent = member.email;
             row.appendChild(td);
-
             td = document.createElement('td');
             td.textContent = member.age;
             row.appendChild(td);
-
             td = document.createElement('td');
             td.textContent = member.name;
             row.appendChild(td);
@@ -57,14 +53,11 @@ async function getUser() {
                     console.error(err);
                 }
             });
-
             const retrieve = document.createElement('button');
             retrieve.textContent = `회원${member.id} 의 TODO 조회`;
             retrieve.addEventListener('click', async () => { // 수정 클릭 시
                 getTodo(member.id);
             });
-
-
             // 버튼 추가
             td = document.createElement('td');
             td.appendChild(edit);
@@ -73,18 +66,16 @@ async function getUser() {
             td.appendChild(retrieve);
             row.appendChild(td);
             tbody.appendChild(row);
-
         });
     } catch (err) {
         console.error(err);
     }
 }
 
-
 // 댓글 로딩
 async function getTodo(id) {
     try {
-        const res = await axios.get(`/members/${id}/todos`);
+        const res = await axios.get(`/members/${id}`);
         const todos = res.data;
         const tbody = document.querySelector('#comment-list tbody');
         tbody.innerHTML = '';
@@ -142,7 +133,7 @@ async function getTodo(id) {
     }
 }
 
-// 사용자 등록 시
+// 사용자 등록
 document.getElementById('user-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -173,9 +164,7 @@ document.getElementById('user-form').addEventListener('submit', async (e) => {
     e.target.username.value = '';
 });
 
-
-
-// 댓글 등록 시
+// 댓글 등록
 document.getElementById('comment-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const id = e.target.userid.value;

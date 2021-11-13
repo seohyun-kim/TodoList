@@ -1,5 +1,6 @@
 const express = require('express');
 const { Todo } = require('../models');
+const Member = require("../models/Member");
 
 const router = express.Router();
 
@@ -20,6 +21,23 @@ router.post('/', async (req, res, next) => {
 });
 
 router.route('/:id')
+    //할 일 단건 조회
+    .get(async (req, res, next) => {
+        try {
+            const id = req.params.id;
+            const todos = await Todo.findOne({
+                include: {
+                    model: Member,
+                    where: { id: req.params.id },
+                },
+            });
+            console.log(todos);
+            res.json(todos);
+        } catch (err) {
+            console.error(err);
+            next(err);
+        }
+    })
     .patch(async (req, res, next) => {
         try {
             const result = await Todo.update({
