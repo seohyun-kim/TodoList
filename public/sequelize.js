@@ -43,10 +43,10 @@ async function getUser() {
             edit.addEventListener('click', async () => { // 수정 클릭 시
                 // 초기 값을 기존 값으로 넣어 미입력을 방지, 나이는 숫자만 입력 받도록 처리
                 const newAge =  parseInt(prompt('변경할 나이을 입력하세요', `${member.age}`));
-                const newName = prompt('변경할 이름을 입력하세요', `${member.name}`);
                 if (!newAge) { // 내용 없을 경우, 숫자 아닌 경우
                     return alert('반드시 숫자형태로 입력해 주세요.');
                 }
+                const newName = prompt('변경할 이름을 입력하세요', `${member.name}`);
                 if (!newName) {
                     return alert('내용을 반드시 입력하셔야 합니다');
                 }
@@ -58,9 +58,19 @@ async function getUser() {
                 }
             });
 
+            const retrieve = document.createElement('button');
+            retrieve.textContent = `회원${member.id} 의 TODO 조회`;
+            retrieve.addEventListener('click', async () => { // 수정 클릭 시
+                getTodo(member.id);
+            });
+
+
             // 버튼 추가
             td = document.createElement('td');
             td.appendChild(edit);
+            row.appendChild(td);
+            td = document.createElement('td');
+            td.appendChild(retrieve);
             row.appendChild(td);
             tbody.appendChild(row);
 
@@ -112,8 +122,8 @@ async function getTodo(id) {
             remove.textContent = '삭제';
             remove.addEventListener('click', async () => { // 삭제 클릭 시
                 try {
-                    await axios.delete(`/comments/${comment.id}`);
-                    getComment(id);
+                    await axios.delete(`/todos/${todo.id}`);
+                    getTodo(id);
                 } catch (err) {
                     console.error(err);
                 }
