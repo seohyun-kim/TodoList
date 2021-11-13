@@ -40,17 +40,17 @@ async function getUser() {
             row.appendChild(td);
 
             const edit = document.createElement('button');
-            edit.textContent = '수정';
+            edit.textContent = `회원${member.id} 수정`;
             edit.addEventListener('click', async () => { // 수정 클릭 시
-                const newAge = prompt('바꿀 나이을 입력하세요');
-                const newName = prompt('바꿀 이름을 입력하세요');
-                if (!newAge) {
-                    return alert('내용을 반드시 입력하셔야 합니다');
+                // 초기 값을 기존 값으로 넣어 미입력을 방지, 나이는 숫자만 입력 받도록 처리
+                const newAge =  parseInt(prompt('변경할 나이을 입력하세요', `${member.age}`));
+                const newName = prompt('변경할 이름을 입력하세요', `${member.name}`);
+                if (!newAge) { // 내용 없을 경우, 숫자 아닌 경우
+                    return alert('반드시 숫자형태로 입력해 주세요.');
                 }
                 if (!newName) {
                     return alert('내용을 반드시 입력하셔야 합니다');
                 }
-
                 try {
                     await axios.patch(`/members/${member.id}`, { age: newAge ,  name: newName});
                     getUser(); //함수 재 호출 (새로고침)
