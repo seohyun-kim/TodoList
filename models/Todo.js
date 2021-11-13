@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 module.exports = class Todo extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
-            // id 자동이므로 생략
+            // Todo의 id는 자동
             content: {
                 type: Sequelize.STRING(45),
                 allowNull: true
@@ -26,6 +26,6 @@ module.exports = class Todo extends Sequelize.Model {
 
     static associate(db) {
         // Todo는 Member에 속해있음 (Member의 target key는 id)
-        db.Todo.belongsTo(db.Member, { foreignKey: 'id', targetKey: 'id' });
+        db.Todo.belongsTo(db.Member, { foreignKey: 'member', targetKey: 'id' });
     }
 };

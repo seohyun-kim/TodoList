@@ -36,6 +36,6 @@ module.exports = class Member extends Sequelize.Model {
 
     static associate(db) {
         // 1: N 관계 ( Member의 id를 참조)
-        db.Member.hasMany(db.Todo, { foreignKey: 'id', sourceKey: 'id' });
+        db.Member.hasMany(db.Todo, { foreignKey: 'member', sourceKey: 'id' });
     }
 };

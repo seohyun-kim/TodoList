@@ -6,7 +6,7 @@ const nunjucks = require('nunjucks');
 const { sequelize } = require('./models');
 const indexRouter = require('./routes');
 const membersRouter = require('./routes/members');
-// const todosRouter = require('./routes/todos');
+ const todosRouter = require('./routes/todos');
 
 const app = express();
 app.set('port', process.env.PORT || 8080);
@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
 app.use('/members', membersRouter);
-// app.use('/todos', todosRouter);
+ app.use('/todos', todosRouter);
 
 app.use((req, res, next) => {
     const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);

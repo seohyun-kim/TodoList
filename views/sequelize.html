@@ -24,11 +24,11 @@
     <table id="user-list">
         <thead>
         <tr>
-            <th>아이디</th>
-            <th>이메일</th>
-            <th>나이</th>
-            <th>이름</th>
-            <th>회원 수정</th>
+            <th>USER ID</th>
+            <th>USER EMAIL</th>
+            <th>AGE</th>
+            <th>NAME</th>
+            <th>EDITOR</th>
         </tr>
         </thead>
         <tbody></tbody>
@@ -38,9 +38,10 @@
 <div>
     <form id="comment-form">
         <fieldset>
-            <legend>댓글 등록</legend>
+            <legend>Todo 등록</legend>
             <div><input id="userid" type="text" placeholder="사용자 아이디"></div>
-            <div><input id="comment" type="text" placeholder="댓글"></div>
+            <div><input id="content" type="text" placeholder="할 일"></div>
+            <div><input id="isCompleted" type="checkbox"><label for="isCompleted">완료</label></div>
             <button type="submit">등록</button>
         </fieldset>
     </form>
@@ -49,9 +50,11 @@
 <table id="comment-list">
     <thead>
     <tr>
-        <th>아이디</th>
-        <th>작성자</th>
-        <th>댓글</th>
+        <th>Todo ID</th>
+        <th>회원 이메일</th>
+        <th>회원 이름</th>
+        <th>할 일</th>
+        <th>완료</th>
         <th>수정</th>
         <th>삭제</th>
     </tr>

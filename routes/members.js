@@ -1,6 +1,6 @@
 const express = require('express');
 const Member = require('../models/Member');
-//const Todo = require('../models/Todo');
+const Todo = require('../models/Todo');
 
 const router = express.Router();
 
@@ -60,7 +60,21 @@ router.route('/:id')
         }
     });
 
-
+router.get('/:id/todos', async (req, res, next) => {
+    try {
+        const todos = await Todo.findAll({
+            include: {
+                model: Member,
+                where: { id: req.params.id },
+            },
+        });
+        console.log(todos);
+        res.json(todos);
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
 
 
 
