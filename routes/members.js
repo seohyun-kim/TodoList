@@ -1,6 +1,6 @@
 const express = require('express');
 const Member = require('../models/Member');
-const Todo = require('../models/Todo');
+//const Todo = require('../models/Todo');
 
 const router = express.Router();
 
@@ -47,7 +47,8 @@ router.route('/:id')
     .patch(async (req, res, next) => {
         try {
             const result = await Member.update({
-                member: req.body.age,
+                age: req.body.age,
+                name: req.body.name
             }, {
                 where: { id: req.params.id },
             });
@@ -56,10 +57,10 @@ router.route('/:id')
             console.error(err);
             next(err);
         }
-    });
+    })
     // .delete(async (req, res, next) => {
     //     try {
-    //         const result = await Comment.destroy({ where: { id: req.params.id } });
+    //         const result = await Member.destroy({ where: { id: req.params.id } });
     //         res.json(result);
     //     } catch (err) {
     //         console.error(err);
@@ -69,20 +70,5 @@ router.route('/:id')
 
 
 
-// router.get('/:id', async (req, res, next) => {
-//     try {
-//         const comments = await Comment.findAll({
-//             include: {
-//                 model: User,
-//                 where: { id: req.params.id },
-//             },
-//         });
-//         console.log(comments);
-//         res.json(comments);
-//     } catch (err) {
-//         console.error(err);
-//         next(err);
-//     }
-// });
 
 module.exports = router;

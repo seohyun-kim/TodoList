@@ -17,15 +17,15 @@ async function getUser() {
         const tbody = document.querySelector('#user-list tbody');
         tbody.innerHTML = '';
         members.map(function (member) {
-            const row = document.createElement('tr');
-            // row.addEventListener('click', () => {
-            //    // getComment(user.id);
-            // });
-
             // 로우 셀 추가
-
+            const row = document.createElement('tr');
+            row.addEventListener('click', () => {
+                console.log("row clicked!");
+               /// getComment(user.id);
+            });
             let td = document.createElement('td');
             td.textContent = member.id;
+            td.textContent = "메롱!"
             row.appendChild(td);
 
             td = document.createElement('td');
@@ -40,26 +40,44 @@ async function getUser() {
             td.textContent = member.name;
             row.appendChild(td);
 
-            const editAge = document.getElementById('editBtn').createElement('button');
-            editAge.textContent = '수정';
-            editAge.addEventListener('click', async () => { // 수정 클릭 시
+            const edit = document.createElement('button');
+            edit.textContent = '수정';
+            edit.addEventListener('click', async () => { // 수정 클릭 시
                 const newAge = prompt('바꿀 나이을 입력하세요');
+                const newName = prompt('바꿀 이름을 입력하세요');
                 if (!newAge) {
                     return alert('내용을 반드시 입력하셔야 합니다');
                 }
+                if (!newName) {
+                    return alert('내용을 반드시 입력하셔야 합니다');
+                }
+
                 try {
-                    await axios.patch(`/members/${member.id}`, { age: newAge });
-                    getUser();
+                    await axios.patch(`/members/${member.id}`, { age: newAge ,  name: newName});
+                    getUser(); //함수 재 호출 (새로고침)
                 } catch (err) {
                     console.error(err);
                 }
             });
-
+            // // const remove = document.createElement('button');
+            // // remove.textContent = '삭제';
+            // // remove.addEventListener('click', async () => { // 삭제 클릭 시
+            // //     try {
+            // //         await axios.delete(`/members/${member.id}`);
+            // //         getUser();
+            // //     } catch (err) {
+            // //         console.error(err);
+            // //     }
+            // // });
             // 버튼 추가
             td = document.createElement('td');
-            td.appendChild(editAge);
+            td.appendChild(edit);
             row.appendChild(td);
-            tbody.appendChild(row);
+            // // td = document.createElement('td');
+            // // td.appendChild(remove);
+            // // row.appendChild(td);
+             tbody.appendChild(row);
+
         });
     } catch (err) {
         console.error(err);
@@ -155,6 +173,31 @@ document.getElementById('user-form').addEventListener('submit', async (e) => {
     e.target.username.value = '';
 });
 
+// // 사용자 수정 시
+// document.getElementById('editBtn{{member.id}}').addEventListener('button', async () => {
+//     const newAge = prompt('바꿀 나이을 입력하세요');
+//     if (!newAge) {
+//         return alert('내용을 반드시 입력하셔야 합니다');
+//     }
+//     try {
+//         await axios.patch(`/members/${member.id}`, { age: newAge });
+//         getUser();
+//     } catch (err) {
+//         console.error(err);
+//     }
+// });
+
+// // 회원 조회 버튼 클릭 시
+// document.getElementById('memRetrieve').addEventListener('button', async () => {
+//     console.log("조회 버튼 클릭!~!!==========");
+//     try {
+//         //await axios.patch(`/members/${member.id}`, { age: newAge });
+//         getUser();
+//     } catch (err) {
+//         console.error(err);
+//     }
+//
+// });
 
 
 

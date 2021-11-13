@@ -15,14 +15,13 @@
                 <legend>회원 등록</legend>
                 <div><input id="email" type="text" placeholder="이메일"></div>
                 <div><input id="age" type="number" placeholder="나이"></div>
-                <div><input id="name" type="text" placeholder="이름"></div>
+                <div><input id="username" type="text" placeholder="이름"></div>
                 <button type="submit">등록</button>
             </fieldset>
         </form>
     </div>
 <br>
-<fieldset>
-    <legend>회원 리스트 조회</legend>
+<!--    <button id= "memRetrieve" type="button">회원 리스트 조회</button>-->
     <table id="user-list">
         <thead>
         <tr>
@@ -30,23 +29,21 @@
             <th>이메일</th>
             <th>나이</th>
             <th>이름</th>
-            <th>수정</th>
         </tr>
         </thead>
         <tbody>
-<!--        {% for member in members %}-->
-<!--        <tr>-->
-<!--            <td>{{member.id}}</td>-->
-<!--            <td>{{member.email}}</td>-->
-<!--            <td>{{member.age}}</td>-->
-<!--            <td>{{member.name}}</td>-->
-<!--            <td> <button id="editBtn" type="button">수정</button> </td>-->
-<!--        </tr>-->
-<!--        {% endfor %}-->
+        {% for member in members %}
+        <tr>
+            <td>{{member.id}}</td>
+            <td>{{member.email}}</td>
+            <td>{{member.age}}</td>
+            <td>{{member.name}}</td>
+<!--            <td><button id=`editBtn{{member.id}}` type="button">수정</button></td>-->
+        </tr>
+        {% endfor %}
         </tbody>
-
     </table>
-</fieldset>
+
 <br>
 <div>
     <form id="comment-form">
