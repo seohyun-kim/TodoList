@@ -53,18 +53,10 @@ async function getUser() {
                     console.error(err);
                 }
             });
-            // const retrieve = document.createElement('button');
-            // retrieve.textContent = `회원${member.id} 의 TODO 조회`;
-            // retrieve.addEventListener('click', async () => { // 수정 클릭 시
-            //     getTodo(member.id);
-            // });
             // 버튼 추가
             td = document.createElement('td');
             td.appendChild(edit);
             row.appendChild(td);
-            // td = document.createElement('td');
-            // td.appendChild(retrieve);
-            // row.appendChild(td);
             tbody.appendChild(row);
         });
     } catch (err) {
