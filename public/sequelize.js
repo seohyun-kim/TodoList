@@ -2,7 +2,7 @@
 document.querySelectorAll('#user-list tr').forEach((el) => {
     el.addEventListener('click', function () {
         const id = el.querySelector('td').textContent;
-        getTodo(id);
+        getTodo();
     });
 });
 
@@ -53,18 +53,18 @@ async function getUser() {
                     console.error(err);
                 }
             });
-            const retrieve = document.createElement('button');
-            retrieve.textContent = `회원${member.id} 의 TODO 조회`;
-            retrieve.addEventListener('click', async () => { // 수정 클릭 시
-                getTodo(member.id);
-            });
+            // const retrieve = document.createElement('button');
+            // retrieve.textContent = `회원${member.id} 의 TODO 조회`;
+            // retrieve.addEventListener('click', async () => { // 수정 클릭 시
+            //     getTodo(member.id);
+            // });
             // 버튼 추가
             td = document.createElement('td');
             td.appendChild(edit);
             row.appendChild(td);
-            td = document.createElement('td');
-            td.appendChild(retrieve);
-            row.appendChild(td);
+            // td = document.createElement('td');
+            // td.appendChild(retrieve);
+            // row.appendChild(td);
             tbody.appendChild(row);
         });
     } catch (err) {
@@ -73,13 +73,14 @@ async function getUser() {
 }
 
 // 댓글 로딩
-async function getTodo(id) {
+async function getTodo() {
     try {
-        const res = await axios.get(`/members/${id}`);
+        const res = await axios.get(`/todos`);
         const todos = res.data;
         const tbody = document.querySelector('#comment-list tbody');
         tbody.innerHTML = '';
         todos.map(function (todo) {
+            console.log("메롱=>"+JSON.stringify(todo));
             // 로우 셀 추가
             const row = document.createElement('tr');
             let td = document.createElement('td');
@@ -104,7 +105,7 @@ async function getTodo(id) {
                 const newCompleted = confirm('완료는 확인, 미완료는 취소를 클릭하세요.');
                 try {
                     await axios.patch(`/todos/${todo.id}`, { isCompleted: newCompleted });
-                    getTodo(id);
+                    getTodo();
                 } catch (err) {
                     console.error(err);
                 }
@@ -114,7 +115,7 @@ async function getTodo(id) {
             remove.addEventListener('click', async () => { // 삭제 클릭 시
                 try {
                     await axios.delete(`/todos/${todo.id}`);
-                    getTodo(id);
+                    getTodo();
                 } catch (err) {
                     console.error(err);
                 }
@@ -189,3 +190,4 @@ document.getElementById('comment-form').addEventListener('submit', async (e) => 
 
 //default
 getUser();
+getTodo();

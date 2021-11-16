@@ -5,7 +5,22 @@ const Member = require("../models/Member");
 const router = express.Router();
 
 // localhost:8080/todos/
-router.post('/', async (req, res, next) => {
+router.route('/')
+    .get(async (req, res, next) => {
+        try {
+            const resTodos = await Todo.findAll({
+                include: {
+                    model: Member,
+                    where: {  },
+                },
+            });
+            res.json(resTodos);
+        } catch (err) {
+            console.error(err);
+            next(err);
+        }
+    })
+    .post( async (req, res, next) => {
     try {
         const todo = await Todo.create({ //INSERT
             member: req.body.id,
@@ -20,11 +35,11 @@ router.post('/', async (req, res, next) => {
     }
 });
 
+
 router.route('/:id')
     //할 일 단건 조회
     .get(async (req, res, next) => {
         try {
-            const id = req.params.id;
             const todos = await Todo.findOne({
                 include: {
                     model: Member,
