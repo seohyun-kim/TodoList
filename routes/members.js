@@ -47,6 +47,7 @@ router.route('/:id')
     .get(async (req, res, next) => {
         try {
             const todos = await Member.findOne({
+                where: { id: req.params.id },
                 include: {
                     model: Todo,
                     required: false,
@@ -55,16 +56,6 @@ router.route('/:id')
             });
             console.log(todos);
             res.json(todos);
-
-            const resTodos = await Todo.findAll({
-                include: {
-                    model: Member,
-                    required: false,
-                    where: { id: req.params.id },
-                },
-            });
-            //res.json(resTodos);
-
         } catch (err) {
             console.error(err);
             next(err);
