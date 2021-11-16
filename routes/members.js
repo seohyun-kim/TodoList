@@ -24,7 +24,6 @@ router.route('/')
             //console.log(JSON.stringify(exUser));
             if (exUser.length >0) {
                 console.log("이메일이 중복됩니다.");
-                //res.write('<script type="text/javascript">alert("이메일이 중복됩니다.");</script>');
                 res.status(201);
             }else{
                 console.log("이메일 사용 가능합니다.");
@@ -47,10 +46,11 @@ router.route('/')
 router.route('/:id')
     .get(async (req, res, next) => {
         try {
-            const todos = await Todo.findAll({
+            const todos = await Member.findOne({
                 include: {
-                    model: Member,
-                    where: { id: req.params.id },
+                    model: Todo,
+                    required: false,
+                    where: { member: req.params.id },
                 },
             });
             console.log(todos);
