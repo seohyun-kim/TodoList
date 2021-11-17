@@ -17,7 +17,16 @@ npm install
 ### 2. config/config_templete.json 수정
  - 파일명 `config.json`으로 변경
  - mysql 계정 연결 (비밀번호 입력)
-
+```json
+{
+  "development": {
+    "username": "root",
+    "password": "INSERT YOUR PASSWORD HERE!",
+    "database": "todolist",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+```  
 
 ### 3. db 생성
 ```
